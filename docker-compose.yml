@@ -1,0 +1,31 @@
+version: '3'
+services:
+    mongodb:
+        container_name: mongo
+        image: mongo
+        volumes:
+            - mongodata:/data/db
+        ports:
+            - '27017:27017'
+        # networks:
+        #     - mynetwork
+    express:
+        container_name: express
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '3000:3000'
+        volumes:
+            - ./:/app
+            - /app/node_modules
+        # environment:
+        #     - MONGO_HOST=mongodb
+        #     - MONGO_PORT=27017
+        # networks:
+        #     - mynetwork
+# networks:
+#     mynetwork:
+#         driver: bridge
+volumes:
+    mongodata:
